@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Example</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="example.css">
+</head>
+<body>
+    <div id="main">
+        <nav :class="active" @click.prevent>
+            <a href="#" class="home" @click="makeActive('home')">Home</a>
+            <a href="#" class="projects" @click="makeActive('projects')">Project</a>
+            <a href="#" class="services" @click="makeActive('services')">Services</a>
+            <a href="#" class="contact" @click="makeActive('contact')">Contact</a>
+        </nav> 
+
+        <p>您选择了<b> {{ active }} 菜单</b></p>
+    </div>
+
+    <form id="form" v-cloak>
+        <h1>Services</h1>
+
+        <ul>
+            <!-- 循环输出 services 数组, 设置选项点击后的样式 -->
+            <li v-for="service in services" v-on:click="toggleActive(service)" v-bind:class="{ 'active': service.active }">
+                <!-- 显示订单中的服务名，价格
+                     Vue.js 定义了货币过滤器，用于格式化价格 -->
+                {{ service.name }}<span>{{ service.price | currency }}</span>
+            </li>
+        </ul>
+    
+        <div class="total">
+            <!-- 计算所有服务的价格，并格式化货币 -->
+            Total: <span>{{ total() | currency }}</span>
+        </div>
+    </form>
+    <script src="example.js"></script>
+</body>
+</html>
